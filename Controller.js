@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const models = require('./models');
-const {Sequelize} = require('./models');
-const { where } = require('sequelize/types');
+// const {Sequelize} = require('./models');
+// const { where } = require('sequelize/type');
 
 app.use(cors());
 app.use(express.json());
@@ -280,7 +280,7 @@ app.put('/atualizarcliente/:id', async(req, res)=>{
         });
     }
     await cliente.update(cli, {
-        where: Sequelize.and({id: req.params.id})
+        where: ({id: req.params.id})
     }).then(cli=>{
         return res.json({
             error: false,
@@ -308,7 +308,7 @@ app.put('/cliente/:id/pedido/', async(req, res)=>{
         });
     }
     await pedido.update(ped, {
-        where: Sequelize.and({id: req.params.id}, {ClienteId: req.body.ClienteId})
+        // where: Sequelize.and({id: req.params.id}, {ClienteId: req.body.ClienteId})
     }).then(ped=>{
         return res.json({
             error: false,
@@ -337,7 +337,7 @@ app.put('/cliente/:id/servico/', async(req, res)=>{
         });
     }
     await servico.update(serv, {
-        where: Sequelize.and({id: req.params.id}, {ClienteId: req.body.ClienteId})
+        // where: Sequelize.and({id: req.params.id}, {ClienteId: req.body.ClienteId})
     }).then(serv=>{
         return res.json({
             error: false,
@@ -366,7 +366,7 @@ app.put('/cliente/:id/compras', async(req, res)=>{
     };
 
     await compra.update(com,{
-        where: Sequelize.and({ClienteId: req.params.id}, {id: req.body.id})
+        // where: Sequelize.and({ClienteId: req.params.id}, {id: req.body.id})
     }).then(compras=>{
         return res.json({
             error: false,
@@ -396,7 +396,7 @@ app.put('/cliente/:id/produtos', async(req, res)=>{
     };
 
     await compra.update(pro,{
-        where: Sequelize.and({ClienteId: req.params.id}, {id: req.body.id})
+        // where: Sequelize.and({ClienteId: req.params.id}, {id: req.body.id})
     }).then(produtos=>{
         return res.json({
             error: false,
@@ -430,7 +430,7 @@ app.put('/pedidos/:id/editaritem', async(req, res)=>{
         });
     };
     await itempedido.update(item, {
-        where: Sequelize.and({ServicoId: req.body.ServicoId}, {PedidoId: req.params.id})
+        // where: Sequelize.and({ServicoId: req.body.ServicoId}, {PedidoId: req.params.id})
     }).then(function(itens){
         return res.json({
             error: false,
@@ -464,7 +464,7 @@ app.put('/compras/:id/editaritem', async(req, res)=>{
         });
     };
     await itemcompra.update(item, {
-        where: Sequelize.and({ProdutoId: req.body.ProdutoId}, {CompraId: req.params.id})
+        // where: Sequelize.and({ProdutoId: req.body.ProdutoId}, {CompraId: req.params.id})
     }).then(function(itens){
         return res.json({
             error: false,
@@ -483,7 +483,7 @@ app.put('/compras/:id/editaritem', async(req, res)=>{
 //Deleta o cliente e tudo relacionado a ele
 app.get('/excluirclinte', async(req, res)=>{
     await cliente.destroy({ 
-        where: {id: req.body.id}
+        // where: {id: req.body.id}
     }).then(()=>{
         return res.json({
             error: false,
