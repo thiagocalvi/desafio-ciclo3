@@ -498,51 +498,6 @@ app.get('/excluirclinte', async(req, res)=>{
    
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 let port = process.env.PORT || 3001;
 app.listen(port,(req, res)=>{
     console.log('Servido ativo: http://localhost:3001');
