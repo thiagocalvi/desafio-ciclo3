@@ -18,7 +18,7 @@ let itemcompra = models.ItemCompra;
 
 //Pagina inicial
 app.get('/', function(req, res){
-    res.send('Sejá bem vindo há Services TIAcademy!')
+    res.send('Sejá bem vindo a Services TIAcademy!')
 });
 
 
