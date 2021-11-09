@@ -41,6 +41,24 @@ app.post('/cliente', async(req, res)=>{
     });
 });
 
+//Novo serviço
+app.post('/servico', async(req, res)=>{
+    await servico.create(
+        req.body
+    ).then(serv=>{
+        return res.json({
+            error: false,
+            massage: 'Serviço registrado com sucesso!',
+            serv
+        });
+    }).catch(erro=>{
+        return res.status(400).json({
+            error: true,
+            massage: 'Erro: não foi pissivel registrar o pedido.'
+        });
+    });
+});
+
 //Novo pedido
 app.post('/pedido', async(req,res)=>{
     await pedido.create(
@@ -151,7 +169,7 @@ app.post('/itemcompra', async(req, res)=>{
 
 //LISTAR
 //Lista todos os clientes
-app.get('/clientes', async(req, res)=>{
+app.get('/listar-clientes', async(req, res)=>{
     await cliente.findAll()
     .then(cli=>{
         return res.json({
@@ -183,7 +201,7 @@ app.get('/pedidos', async(req, res)=>{
 });
 
 //Listar serviços
-app.get('/servicos', async(req, res)=>{
+app.get('/listar-servicos', async(req, res)=>{
     await servico.findAll()
     .then(ped=>{
         return res.json({

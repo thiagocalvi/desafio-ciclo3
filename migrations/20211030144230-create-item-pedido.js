@@ -5,6 +5,7 @@ module.exports = {
       PedidoId: {
         allowNull: false,
         primaryKey: true,
+        type: Sequelize.INTEGER,
         references:{
           model: 'pedidos',
           key: 'id'
@@ -15,6 +16,7 @@ module.exports = {
       ServicoId: {
         allowNull: false,
         primaryKey: true,
+        type: Sequelize.INTEGER,
         references:{
           model: 'servicos',
           key: 'id'
