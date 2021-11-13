@@ -185,7 +185,7 @@ app.get('/listar-clientes', async(req, res)=>{
 });
 
 //Lista pedidos
-app.get('/pedidos', async(req, res)=>{
+app.get('/listar-pedidos', async(req, res)=>{
     await pedido.findAll()
     .then(ped=>{
         return res.json({
@@ -203,10 +203,10 @@ app.get('/pedidos', async(req, res)=>{
 //Listar serviços
 app.get('/listar-servicos', async(req, res)=>{
     await servico.findAll()
-    .then(ped=>{
+    .then(ser=>{
         return res.json({
             error: false,
-            ped
+            ser
         });
     }).catch(erro=>{
         return res.status(400).json({
@@ -249,7 +249,7 @@ app.get('/compras', async(req, res)=>{
 });
 
 //Lista produtos
-app.get('/produtos', async(req, res)=>{
+app.get('/listar-produtos', async(req, res)=>{
     await produto.findAll()
     .then(pro=>{
         return res.json({
@@ -499,7 +499,7 @@ app.put('/compras/:id/editaritem', async(req, res)=>{
 
 //Excluir
 //Deleta o cliente e tudo relacionado a ele
-app.get('/excluirclinte', async(req, res)=>{
+app.get('/excluir-clinte', async(req, res)=>{
     await cliente.destroy({ 
         // where: {id: req.body.id}
     }).then(()=>{
