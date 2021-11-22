@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const models = require('./models');
+const { Sequelize } = require('./models');
 // const {Sequelize} = require('./models');
 // const { where } = require('sequelize/type');
 
@@ -24,7 +25,7 @@ app.get('/', function(req, res){
 
 //INSERIR
 //Novo cliente
-app.post('/cliente', async(req, res)=>{
+app.post('/novo-cliente', async(req, res)=>{
     await cliente.create(
         req.body
     ).then(cli=>{
@@ -42,7 +43,7 @@ app.post('/cliente', async(req, res)=>{
 });
 
 //Novo serviço
-app.post('/servico', async(req, res)=>{
+app.post('/novo-servico', async(req, res)=>{
     await servico.create(
         req.body
     ).then(serv=>{
@@ -233,7 +234,7 @@ app.get('/itempedidos', async(req, res)=>{
 });
 
 //Listar compras
-app.get('/compras', async(req, res)=>{
+app.get('/listar-compras', async(req, res)=>{
     await compra.findAll()
     .then(cp=>{
         return res.json({
@@ -283,7 +284,7 @@ app.get('/itemcompras', async(req, res)=>{
 
 //ATUALIZAR
 //Atualiza cliente
-app.put('/atualizarcliente/:id', async(req, res)=>{
+app.put('/editar-cliente/:id', async(req, res)=>{
     const cli = {
         nome: req.body.nome,
         endereco: req.body.endereco,
@@ -499,9 +500,9 @@ app.put('/compras/:id/editaritem', async(req, res)=>{
 
 //Excluir
 //Deleta o cliente e tudo relacionado a ele
-app.get('/excluir-clinte', async(req, res)=>{
+app.get('/excluir-clinte/:id', async(req, res)=>{
     await cliente.destroy({ 
-        // where: {id: req.body.id}
+        where: Sequelize.and = ({id: req.params.id},{id:cliente.id})
     }).then(()=>{
         return res.json({
             error: false,
@@ -510,7 +511,7 @@ app.get('/excluir-clinte', async(req, res)=>{
     }).catch(erro=>{
         return res.status(400).json({
             error: true,
-            massage: 'Erro: não foi possivel escluir o cliente'
+            massage: 'Erro: não foi possivel excluir o cliente'
         });
     });
    
