@@ -133,18 +133,19 @@ app.post('/compra', async(req, res)=>{
 });
 
 //Novo produto
-app.post('/produto', async(req, res)=>{
-    await pedido.create(
+app.post('/novo-produto', async(req, res)=>{
+    await produto.create(
         req.body
-    ).then(ped=>{
+    ).then(pro=>{
         return res.json({
             error: false,
             massage: 'Produto adicionado com sucusso!',
-            ped
+            pro
         });
     }).catch(erro=>{
         return res.status(400).json({
             error: true,
+            erro: console.error(erro),
             massage: 'Erro: não foi possivel adicionar produto.'
         });
     });
