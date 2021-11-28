@@ -219,8 +219,8 @@ app.get('/listar-servicos', async(req, res)=>{
 });
 
 //Listar itempedido
-app.get('/itempedidos', async(req, res)=>{
-    await itempedido.findAll()
+app.get('/cliente/:id', async(req, res)=>{
+    await itempedido.findByPk(req.params.id)
     .then(itp=>{
         return res.json({
             error: false,
@@ -501,18 +501,36 @@ app.put('/compras/:id/editaritem', async(req, res)=>{
 
 //Excluir
 //Deleta o cliente e tudo relacionado a ele
-app.get('/excluir-clinte/:id', async(req, res)=>{
+app.delete('/excluir-clinte/:id', async(req, res)=>{
     await cliente.destroy({ 
-        where: Sequelize.and = ({id: req.params.id},{id:cliente.id})
+        where: {id: req.params.id}
     }).then(()=>{
         return res.json({
             error: false,
-            massage: 'Cliente excluido com sucesso!'
+            message: 'Cliente excluido com sucesso!'
         });
     }).catch(erro=>{
         return res.status(400).json({
             error: true,
-            massage: 'Erro: não foi possivel excluir o cliente'
+            message: 'Erro: não foi possivel excluir o cliente'
+        });
+    });
+   
+});
+
+//Deletar serviço
+app.delete('/excluir-servico/:id', async(req, res)=>{
+    await pedido.destroy({ 
+        where: {id: req.params.id}
+    }).then(()=>{
+        return res.json({
+            error: false,
+            message: 'Serviço excluido com sucesso!'
+        });
+    }).catch(erro=>{
+        return res.status(400).json({
+            error: true,
+            message: 'Erro: não foi possivel excluir o servico'
         });
     });
    
