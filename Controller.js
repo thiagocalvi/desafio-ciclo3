@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express();
 const models = require('./models');
 const { Sequelize } = require('./models');
-// const {Sequelize} = require('./models');
+// const { Sequelize } = require('./models');
 // const { where } = require('sequelize/type');
 
 app.use(cors());
@@ -19,7 +19,7 @@ let itemcompra = models.ItemCompra;
 
 //Pagina inicial
 app.get('/', function(req, res){
-    res.send('Sejá bem vindo a Services TIAcademy!')
+    res.send('<h1>Sejá bem vindo a Services TIAcademy!</h1>');  
 });
 
 
@@ -296,11 +296,11 @@ app.put('/editar-cliente/:id', async(req, res)=>{
     if(!await cliente.findByPk(req.params.id)){
         return res.status(400).json({
             error: true,
-            massage: 'Cliente não cadastrado.'
+            massage: 'Cliente não cadastrado.'      
         });
     }
     await cliente.update(cli, {
-        where: ({id: req.params.id})
+        where: {id: req.params.id}
     }).then(cli=>{
         return res.json({
             error: false,
@@ -432,7 +432,7 @@ app.put('/cliente/:id/produtos', async(req, res)=>{
 });
 
 //Atualiza item pedido
-app.put('/pedidos/:id/editaritem', async(req, res)=>{
+app.put('/pedidos/:id/editar-item', async(req, res)=>{
     const item  = {
         valor: req.body.valor,
         quantidade: req.body.quantidade
@@ -466,7 +466,7 @@ app.put('/pedidos/:id/editaritem', async(req, res)=>{
 });
 
 //Atualiza item compra
-app.put('/compras/:id/editaritem', async(req, res)=>{
+app.put('/compras/:id/editar-item', async(req, res)=>{
     const item  = {
         valor: req.body.valor,
         quantidade: req.body.quantidade
@@ -520,7 +520,7 @@ app.delete('/excluir-clinte/:id', async(req, res)=>{
 
 //Deletar serviço
 app.delete('/excluir-servico/:id', async(req, res)=>{
-    await pedido.destroy({ 
+    await servico.destroy({ 
         where: {id: req.params.id}
     }).then(()=>{
         return res.json({
@@ -535,6 +535,43 @@ app.delete('/excluir-servico/:id', async(req, res)=>{
     });
    
 });
+
+//Deletar Produto
+app.delete('/excluir-produto/:id', async(req, res)=>{
+    await produto.destroy({ 
+        where: {id: req.params.id}
+    }).then(()=>{
+        return res.json({
+            error: false,
+            message: 'Serviço excluido com sucesso!'
+        });
+    }).catch(erro=>{
+        return res.status(400).json({
+            error: true,
+            message: 'Erro: não foi possivel excluir o servico'
+        });
+    });
+   
+});
+
+//Deletar Compra
+app.delete('/excluir-compra/:id', async(req, res)=>{
+    await produto.destroy({ 
+        where: {id: req.params.id}
+    }).then(()=>{
+        return res.json({
+            error: false,
+            message: 'Compra excluido com sucesso!'
+        });
+    }).catch(erro=>{
+        return res.status(400).json({
+            error: true,
+            message: 'Erro: não foi possivel excluir a compra'
+        });
+    });
+   
+});
+
 
 let port = process.env.PORT || 3001;
 app.listen(port,(req, res)=>{
